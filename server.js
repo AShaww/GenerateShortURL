@@ -27,7 +27,15 @@ app.post('/generatedURLs', (req, res) => {
 })
 
 // GET "A" record from MongoDB - relate that to the short url 
+app.get('/:generatedURL', async(req, res) => {
+    const generatedURL = await GeneratedURL.findOne({
+        generatedURL: req.params.generatedURL
+    })
+    generatedURL.clicks++;
+    generatedURL.save();
 
+    res.redirect(generatedURL.long)
+})
 
 app.listen(PORT, () => {
     console.log('Server running on port 1337')

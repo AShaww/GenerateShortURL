@@ -2,11 +2,8 @@ const express = require('express')
 const config = require('config')
 const PORT = config.get('PORT')
 const GeneratedURL = require('./models/urlSchema')
-
 const dbConnect = require('./config/db')
-
 const app = express()
-
 dbConnect();
 
 app.set('view engine', 'ejs');
@@ -22,7 +19,7 @@ app.get('/', async(req, res) => {
 
 
 // POST "A" record to MongoDB
-app.post('/generatedURL', (req, res) => {
+app.post('/generatedURLs', (req, res) => {
     GeneratedURL.create({
         long: req.body.longUrl
     })

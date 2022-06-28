@@ -19,7 +19,7 @@ app.get('/', async(req, res) => {
 
 
 // POST "A" record to MongoDB
-app.post('/generatedURLs', (req, res) => {
+app.post('/generatedURLs', async(req, res) => {
     GeneratedURL.create({
         long: req.body.longUrl
     })
@@ -29,13 +29,16 @@ app.post('/generatedURLs', (req, res) => {
 // GET "A" record from MongoDB - relate that to the short url 
 app.get('/:generatedURL', async(req, res) => {
     const generatedURL = await GeneratedURL.findOne({
-        generatedURL: req.params.generatedURL
+        short: req.params.generatedURL
     })
     generatedURL.clicks++;
     generatedURL.save();
 
     res.redirect(generatedURL.long)
 })
+
+
+
 
 app.listen(PORT, () => {
     console.log('Server running on port 1337')

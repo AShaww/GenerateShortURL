@@ -1,27 +1,33 @@
 const express = require('express')
 const config = require('config')
 const PORT = config.get('PORT')
-const dbConnect = require('./config/db')
 const GeneratedURL = require('./models/urlSchema')
+
+const dbConnect = require('./config/db')
 
 const app = express()
 
 dbConnect();
 
-
 app.set('view engine', 'ejs');
 
+app.use(express.urlencoded({ extended: false }))
 
 // GET all records from MongoDB
-app.get('/', (req, res) => {
-    const generatedURL = GeneratedURL.find()
-    res.render('index');
+
+app.get('/', async(req, res) => {
+    const generatedURL = await GeneratedURL.find()
+    res.render('index', ({ generatedURL: generatedURL }));
 })
 
 
-
 // POST "A" record to MongoDB
-
+app.post('/generatedURL', (req, res) => {
+    GeneratedURL.create({
+        long: req.body.longUrl
+    })
+    res.redirect('/')
+})
 
 // GET "A" record from MongoDB - relate that to the short url 
 

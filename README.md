@@ -13,6 +13,10 @@ Use the package manager [npm](https://www.npmjs.com) to install packages.
 ```npm install packages
 npm install 
 ```
+### run application(server)
+```
+npm run dev
+```
 ### config dir
 ```
 Add own MongoDB connection string in default.json

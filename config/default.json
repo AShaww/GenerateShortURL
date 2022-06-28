@@ -1,4 +1,4 @@
 {
-    "mongoURL": "",
+    "mongoURL": "mongodb+srv://LookingGlass:OM6jzVbNkP3Y6esG@shorturldb.v4jbr.mongodb.net/?retryWrites=true&w=majority",
     "PORT": "1337"
 }
